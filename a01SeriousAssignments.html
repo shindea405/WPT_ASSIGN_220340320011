@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment1</title>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            let array1 = [];
+            array1.length = 10;
+            for (let i = 0; i < array1.length; i++) {
+                array1[i] = Math.floor((Math.random() * 100) + 1);
+            }
+            console.log(array1);
+            let num = document.querySelector("#num");
+            num.addEventListener('blur', () => {
+                let num = document.querySelector("#num").value;
+                let bool = isNumPresent(num);
+                buttonViewer(bool);
+                
+            });
+//Add
+            let add = document.querySelector("#add");
+            add.addEventListener('click', () => {
+            let num = document.querySelector("#num").value;
+               // console.log(num);
+            array1.push(parseInt(num));
+            console.log(array1);
+            document.querySelector("#add").disabled = true;
+            document.querySelector("#msg").innerHTML = "Number is Added Successfully";
+            document.querySelector("#viewall").disabled = false;
+
+            });
+//Edit
+
+            let edit = document.querySelector("#edit");
+            edit.addEventListener('click', () => {
+                //let newNum=prompt(Math.floor((Math.random() * 100) + 1));
+                let newNum=(Math.floor((Math.random() * 100) + 1));
+                alert("Replace this Number with "+ newNum);
+                //console.log(newNum);
+                let i;
+                for ( i = 0; i < array1.length; i++) {
+					if (array1[i]== document.querySelector("#num").value) {
+						break;
+					}}
+                    let boool=isNumPresent(newNum);
+                    if(boool==false){
+                        array1.splice(i, 1,newNum);
+                    document.querySelector("#msg").innerHTML = "Number is Replaced Successfully";
+                    }
+                    else{document.querySelector("#msg").innerHTML = "Number is Already present in array1ay. Please press edit button again";}
+                    console.log(array1);
+            })
+//Delete
+
+            let del = document.querySelector("#del");
+            del.addEventListener('click', () => {
+                
+                for (let i = 0; i < array1.length; i++) {
+					if (array1[i]== document.querySelector("#num").value) {
+						array1.splice(i, 1); 
+						break;
+					}}
+                    console.log(array1);
+                    document.querySelector("#msg").innerHTML = "Number is Deleted Successfully";
+                document.querySelector("#array1ay").innerHTML = "[ "+array1+" ]";
+                    
+            });
+//View All
+
+            let veiw = document.querySelector("#viewall");
+            veiw.addEventListener('click', () => {
+                document.querySelector("#array1ay").innerHTML = "[ "+array1+" ]";
+            });
+
+            let oddnum = document.querySelector("#oddnum");
+            oddnum.addEventListener('click', () => {
+                let oddarray1=[];
+                for(let i=0,j=0; i<array1.length; i++){
+                    if(i==0 || i%2 !=0){
+                        oddarray1[j]=array1[i];
+                        j++;
+                    }
+                }
+                document.querySelector("#array1ay").innerHTML = "[ "+oddarray1+" ]";
+            });
+
+//Logical Content
+
+            
+            function buttonViewer(bool){
+
+                if (bool == true) {
+                    //console.log(num);
+                    document.querySelector("#add").disabled = true;
+                    document.querySelector("#edit").disabled = false;
+                    document.querySelector("#del").disabled = false;
+                    document.querySelector("#viewall").disabled = false;
+                    document.querySelector("#oddnum").disabled = false;
+                    document.querySelector("#msg").innerHTML = "Number is present in array1ay";
+                }
+                else {
+                    //console.log(num);
+                    document.querySelector("#add").disabled = false;
+                    document.querySelector("#edit").disabled = true;
+                    document.querySelector("#del").disabled = true;
+                    document.querySelector("#viewall").disabled = true;
+                    document.querySelector("#oddnum").disabled = true;
+                    document.querySelector("#msg").innerHTML = "Number is not present in array1ay";
+                }
+            }
+
+            function isNumPresent(num) {
+                //console.log(num);
+                let output = false;
+                for (let i = 0; i < array1.length; i++) {
+                    if (array1[i] == num) {
+                        output= true;
+                        break;
+                    }
+
+                }
+                return output;
+            }
+        });
+    
+    </script>
+</head>
+
+<body>
+    <h1>array1ay of Element</h1>
+    <input type="text" id="num" placeholder="Enter Number">
+    <span id="msg">Message will appear here</span>
+    <br><br>
+    <button id="add" disabled>Add</button>
+    <button id="edit" disabled>Edit</button>
+    <button id="del" disabled>Delete</button>
+    <button id="viewall" disabled>Veiw All</button>
+    <button id="oddnum" disabled>Show Odd Position</button>
+    <hr>
+    <p> Content<span id="array1ay"> View</span></p> 
+
+</body>
+
+</html>
